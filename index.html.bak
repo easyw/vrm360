@@ -34,9 +34,6 @@
         <div id="info">
         <a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> -
         kicad vrml format loader -
-        <br>
-        <a id="fit" title="Fit" href="" onclick="fitCameraToObject ( camera, object, 1.25, controls );return false;">zoom fit</a>
-        <!-- button type="button" id="fitb" onclick="fitCameraToObject ( camera, object, 1.25, controls );return false;">zoom fit</button -->
         <!--model from <a href="http://cs.iupui.edu/~aharris/webDesign/vrml/" target="_blank" rel="noopener">VRML 2.0 Tutorial</a>,-->
         </div>
 
