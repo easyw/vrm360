@@ -35,6 +35,10 @@
         <a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> -
         kicad vrml format loader -
         <br>
+        The model may take long time to appear depending on network speed.
+        <br>
+        Left mouse/One finger – Orbit  *  Middle mouse/Two fingers – Zoom  *  Right mouse/Three fingers – Pan
+        <br>
         <a id="fit" title="Fit" href="" onclick="fitCameraToObject ( camera, object, 1.25, controls );return false;">zoom fit</a>
         <!-- button type="button" id="fitb" onclick="fitCameraToObject ( camera, object, 1.25, controls );return false;">zoom fit</button -->
         <!--model from <a href="http://cs.iupui.edu/~aharris/webDesign/vrml/" target="_blank" rel="noopener">VRML 2.0 Tutorial</a>,-->
@@ -60,7 +64,7 @@
 
             function fitCameraToObject( camera, object, offset, controls ) {
 
-                offset = offset || 1.25;
+                offset =  offset || 1.35;
             
                 const boundingBox = new THREE.Box3();
             
@@ -149,7 +153,7 @@
                 loader.load( 'assets/kicad-test.wrl', function ( object ) {
 
                     scene.add( object );
-                    fitCameraToObject ( camera, object, 1.25, controls );
+                    fitCameraToObject ( camera, object, 1.35, controls );
 
                 } );
 
