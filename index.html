@@ -35,7 +35,13 @@
         <a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> -
         kicad vrml format loader -
         <br>
-        <a id="fit" title="Fit" href="" onclick="fitCameraToObject ( camera, object, 1.25, controls );return false;">zoom fit</a>
+        The model may take long time to appear depending on network speed.
+        <br>
+        Left mouse/One finger - Orbit  *  Middle mouse/Two fingers - Zoom  *  Right mouse/Three fingers - Pan
+        <br>
+        <!-- a id="fit2" title="Fit" href="" onclick="fitCameraToObject ( camera, object, 1.35, controls );return false;">zoom fit old</a -->
+        <a id="fit" title="Fit" href="" onclick="zoom_refit ();return false;">zoom fit</a>
+        <a id="rot" title="Rot" href="" onclick="toggle_rotation ();return false;">toggle rotation</a>
         <!-- button type="button" id="fitb" onclick="fitCameraToObject ( camera, object, 1.25, controls );return false;">zoom fit</button -->
         <!--model from <a href="http://cs.iupui.edu/~aharris/webDesign/vrml/" target="_blank" rel="noopener">VRML 2.0 Tutorial</a>,-->
         </div>
@@ -52,15 +58,28 @@
 
         <script>
 
+            var rotate = false; var cameraZ;
+            
             if ( WEBGL.isWebGLAvailable() === false ) {
 
                 document.body.appendChild( WEBGL.getWebGLErrorMessage() );
 
             }
-
+            function toggle_rotation () {
+                rotate = ! rotate;
+            }
+            
+            function zoom_refit () {
+                r=cameraZ*1.25;
+                camera.position.x=r*Math.cos(2);
+                camera.position.z=r*Math.sin(2);
+                camera.lookAt(scene.position);
+                renderer.render( scene, camera );
+            }
+            
             function fitCameraToObject( camera, object, offset, controls ) {
 
-                offset = offset || 1.25;
+                offset =  offset || 1.35;
             
                 const boundingBox = new THREE.Box3();
             
@@ -147,9 +166,9 @@
                 // loader.load( 'assets/house.wrl', function ( object ) {
                 
                 loader.load( 'assets/kicad-test.wrl', function ( object ) {
-
+                //loader.load( 'assets/oshwi.wrl', function ( object ) {
                     scene.add( object );
-                    fitCameraToObject ( camera, object, 1.25, controls );
+                    fitCameraToObject ( camera, object, 1.35, controls );
 
                 } );
 
@@ -185,6 +204,13 @@
 
                 requestAnimationFrame( animate );
 
+                if (rotate) {
+                    var timer=Date.now() * 0.0005;
+                    r=cameraZ*1.25;
+                    camera.position.x=r*Math.cos(timer);
+                    camera.position.z=r*Math.sin(timer);
+                    camera.lookAt(scene.position);
+                    }
                 renderer.render( scene, camera );
 
                 // stats.update();
